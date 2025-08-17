@@ -3,11 +3,12 @@ name: Python CD (Simulado)
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    needs: build  # se quiser depender do CI
     steps:
     - name: 📥 Checkout do código
       uses: actions/checkout@v3
