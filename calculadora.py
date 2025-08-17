@@ -33,7 +33,8 @@ if __name__ == "__main__":
         print("➖ 2 - Subtração")
         print("✖️ 3 - Multiplicação")
         print("➗ 4 - Divisão")
-        print("🚪 5 - Sair\n")
+        print("🚪 5 - Sair")
+        print("------------------------------")
 
         opcao = input("👉 Digite sua escolha: ")
 
