@@ -4,12 +4,11 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main" ]   # Agora o workflow roda também em PRs para main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - name: 📥 Checkout do código
       uses: actions/checkout@v3

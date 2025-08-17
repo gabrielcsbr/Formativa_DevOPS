@@ -3,11 +3,12 @@ name: Python CD (Simulado)
 on:
   push:
     branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    needs: build  # se quiser depender do CI
     steps:
     - name: 📥 Checkout do código
       uses: actions/checkout@v3
@@ -20,7 +21,14 @@ jobs:
     - name: 🚀 Simular deploy
       run: |
         mkdir -p dist
-        cp src/calculadora.py dist/
+        if [ -f src/calculadora.py ]; then
+          cp src/calculadora.py dist/
+        elif [ -f calculadora.py ]; then
+          cp calculadora.py dist/
+        else
+          echo "⚠️ Arquivo calculadora.py não encontrado!"
+          exit 1
+        fi
         echo "✅ Deploy simulado concluído. Arquivo copiado para dist/"
 
     - name: 📁 Listar conteúdo do diretório dist
