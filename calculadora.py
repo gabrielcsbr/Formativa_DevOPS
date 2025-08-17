@@ -33,7 +33,7 @@ if __name__ == "__main__":
         opcao = input("👉 Digite sua escolha: ")
 
         if opcao == "5":
-            print("\n👋 Saindo da calculadora... Até logo!\n")
+            print("\n👋 Obrigado por usar a Calculadora! Até logo! ✨\n")
             break
 
         try:
