@@ -18,8 +18,9 @@ if __name__ == "__main__":
     calc = Calculadora()
 
     print("\n==============================")
-    print("🧮 Bem-vindo à Calculadora 🧮")
-    print("==============================\n")   
+    print("🧮✨ Bem-vindo à Calculadora✨🧮")
+    print("==============================\n")
+    print("Aqui você pode realizar operações básicas de matemática 🎉\n")
 
     while True:
         print("\n🔹 Escolha uma operação:")
