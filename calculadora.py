@@ -1,17 +1,22 @@
 class Calculadora:
+    # Soma dois números
     def soma(self, a: float, b: float) -> float:
         return a + b
 
+    # Subtrai o segundo número do primeiro
     def subtracao(self, a: float, b: float) -> float:
         return a - b
 
+    # Multiplica dois números
     def multiplicacao(self, a: float, b: float) -> float:
         return a * b
 
+    # Divide o primeiro número pelo segundo, tratando divisão por zero
     def divisao(self, a: float, b: float) -> float:
         if b == 0:
             raise ValueError("🚫 Erro: Divisão por zero não é permitida!")
         return a / b
+
 
 
 if __name__ == "__main__":
