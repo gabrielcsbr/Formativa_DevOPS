@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
     print("\n==============================")
     print("🧮 Bem-vindo à Calculadora 🧮")
-    print("==============================\n")
+    print("==============================\n")   
 
     while True:
         print("\n🔹 Escolha uma operação:")
