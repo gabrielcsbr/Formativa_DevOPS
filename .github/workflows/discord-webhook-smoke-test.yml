@@ -1,0 +1,16 @@
+name: Discord Webhook Smoke Test
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔔 Enviar teste simples ao Discord (curl)
+        run: |
+          curl -sS -X POST -H "Content-Type: application/json" \
+          -d "{\"username\":\"CI Ping\",\"content\":\"👋 Webhook OK: ${GITHUB_REPOSITORY} • run #${GITHUB_RUN_NUMBER}\"}" \
+          "${DISCORD_WEBHOOK}"
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
