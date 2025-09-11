@@ -52,14 +52,15 @@ jobs:
       - name: 📁 Listar conteúdo do diretório dist
         run: ls -l dist/
 
+#novo teste
 
 name: Python CI/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -71,7 +72,7 @@ jobs:
       - name: 🐍 Configurar Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
       - name: 📦 Instalar dependências
         run: |
@@ -82,16 +83,29 @@ jobs:
         run: |
           pytest || echo "Nenhum teste encontrado"
 
-      # --- A) Resumo de commits em Discord (push/PR) ---
-      - name: 🔔 Discord Commits
-        if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
+      # --- Notificar commits da PR ---
+      - name: 🔔 Discord Commits (PR)
+        if: ${{ github.event_name == 'pull_request' }}
         uses: Sniddl/discord-commits@v1.6
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          template: "avatar-with-link"   # tem vários templates prontos
-          include-extras: true           # inclui links úteis
-      # (templates e campos suportados pela action)
-      # https://github.com/marketplace/actions/discord-commits
+          template: "avatar-with-link"
+          include-extras: true
+          message: >
+            📣 PR **#${{ github.event.pull_request.number }}** para `${{ github.base_ref }}`
+            por **${{ github.actor }}** em **${{ github.repository }}**.
+
+      # --- Notificar commits de push (ex.: merge no main) ---
+      - name: 🔔 Discord Commits (push)
+        if: ${{ github.event_name == 'push' }}
+        uses: Sniddl/discord-commits@v1.6
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          template: "avatar-with-link"
+          include-extras: true
+          message: >
+            📣 Push em `${{ github.ref_name }}` por **${{ github.actor }}**
+            no repo **${{ github.repository }}**.
 
   deploy:
     runs-on: ubuntu-latest
@@ -116,15 +130,35 @@ jobs:
       - name: 📁 Listar conteúdo do diretório dist
         run: ls -l dist/
 
-      # --- B) Notificação de status do job (sempre executa) ---
-      - name: 🔔 Notificar status no Discord
-        if: ${{ always() }}
+      # Status OK
+      - name: 🟢 Notificar sucesso no Discord
+        if: ${{ success() }}
         uses: Ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         with:
           args: >
-            CI/CD • **${{ github.repository }}**
-            → job `deploy` **${{ job.status }}**
-            • ref `${{ github.ref_name }}` • run #${{ github.run_number }}
+            🟢 **CI/CD OK** • `${{ github.repository }}`
+            • Evento: `${{ github.event_name }}`
+            • Ref: `${{ github.ref_name }}`
+            • Autor: **${{ github.actor }}**
+            • Run: #${{ github.run_number }}
+            • Logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+      # Status FAIL
+      - name: 🔴 Notificar falha no Discord
+        if: ${{ failure() }}
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        with:
+          args: >
+            🔴 **CI/CD FALHOU** • `${{ github.repository }}`
+            • Job: `${{ github.job }}`
+            • Evento: `${{ github.event_name }}`
+            • Ref: `${{ github.ref_name }}`
+            • Autor: **${{ github.actor }}**
+            • Logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+
     
