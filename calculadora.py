@@ -11,24 +11,25 @@ __license__ = "MIT"
 
 
 class Calculadora:
-    # Soma dois números
+    """Operações aritméticas básicas usadas pela interface de terminal."""
+
     def soma(self, a: float, b: float) -> float:
+        """Retorna a soma de a e b."""
         return a + b
 
-    # Subtrai o segundo número do primeiro
     def subtracao(self, a: float, b: float) -> float:
+        """Retorna a subtração de a por b."""
         return a - b
 
-    # Multiplica dois números
     def multiplicacao(self, a: float, b: float) -> float:
+        """Retorna o produto de a e b."""
         return a * b
 
-    # Divide o primeiro número pelo segundo, tratando divisão por zero
     def divisao(self, a: float, b: float) -> float:
+        """Retorna a divisão de a por b (lança ValueError se b == 0)."""
         if b == 0:
             raise ValueError("🚫 Erro: Divisão por zero não é permitida!")
         return a / b
-
 
 
 if __name__ == "__main__":
