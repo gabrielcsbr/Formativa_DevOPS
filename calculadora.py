@@ -1,3 +1,15 @@
+"""
+Calculadora Simples — Projeto Somativa DevOPS
+Arquivo principal da aplicação de terminal (Python 3.10+).
+
+"""
+
+__author__ = "Gabriel Cordeiro Antero"
+__version__ = "1.0.0"
+__license__ = "MIT"
+
+
+
 class Calculadora:
     # Soma dois números
     def soma(self, a: float, b: float) -> float:
