@@ -1,5 +1,5 @@
 # Formativa_DevOPS 🚀
-Atividades Formativas PUCPR - DevOPS - Produzido por Gabriel Cordeiro Antero 🧑‍💻
+Atividades Formativas PUCPR - DevOPS - Produzido por Gabriel Cordeiro Antero! 🧑‍💻
 
 # Calculadora Simples em Python 🔢✨
 
