@@ -103,3 +103,11 @@ jobs:
             • Ref: `${{ github.ref_name }}`
             • Autor: **${{ github.actor }}**
             • Logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            
+
+      - name: ✅ Rodar testes (com cobertura)
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; else pip install pytest pytest-cov; fi
+          pytest -q --maxfail=1 --disable-warnings --cov=. --cov-report=term-missing
+
